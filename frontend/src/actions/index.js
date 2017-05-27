@@ -33,30 +33,21 @@ export const loginAction = (email, password) => (dispatch) => {
     console.log("empty values");
     return;
   }
-  var bcrypt = require('bcryptjs');
-  const saltRounds = 10;
-  bcrypt.hash(password, saltRounds, function(err, hash) {
-    // Store hash in your password DB.
-    if (!err){
-      //TODO!!!!! USE "password":hash
-      api.post('/UserMain/login', {"email":email, "password":password})
-      .then((response) => {
-        // console.log('--- loginAction', response.data);
-        // console.log('--- loginAction', response.status);
-        if (response.status === 200){
-          var userId = response.data.userId;
-          var token = response.data.id;
-          dispatch(userLoggedInAction(token, userId));
-          browserHistory.push('/');
-        }
-      })
-      .catch((error) => {
-        console.log("Error: ", error);
-        console.log("Error: ", error.response);
-        dispatch(userLoginFailedAction());
-      });
-
+  api.post('/UserMain/login', {"email":email, "password":password})
+  .then((response) => {
+    // console.log('--- loginAction', response.data);
+    // console.log('--- loginAction', response.status);
+    if (response.status === 200){
+      var userId = response.data.userId;
+      var token = response.data.id;
+      dispatch(userLoggedInAction(token, userId));
+      browserHistory.push('/');
     }
+  })
+  .catch((error) => {
+    console.log("Error: ", error);
+    console.log("Error: ", error.response);
+    dispatch(userLoginFailedAction());
   });
 };
 

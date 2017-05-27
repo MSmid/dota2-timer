@@ -20,7 +20,9 @@
   "dependencies": {
     "axios": "^0.15.2",
     "bootstrap": "^3.3.7",
+    "circle-timer": "^0.1.6",
     "classnames": "^2.2.5",
+    "dota2-minimap-hero-sprites": "^2.0.0",
     "lodash": "^4.16.4",
     "loopback-connector-mysql": "^2.4.0",
     "react": "^15.3.2",

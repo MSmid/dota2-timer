@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux';
 import authentificationReducer from './authentificationReducer.js';
+import timer from './timer.js';
+import abilities from './abilities.js';
+import heroes from './heroes.js';
 import { setAuthToken } from '../api.js';
 
 //Dummy action
@@ -41,5 +44,8 @@ export const rootReducer = combineReducers({
   //add reducers so they will be added to Store
  authentificationReducer, //@Dan style
  auth, //@Heracek style
- dummy
+ dummy,
+ timer,
+ abilities,
+ heroes
 });

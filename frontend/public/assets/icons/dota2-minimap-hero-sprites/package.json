@@ -1,0 +1,96 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "dota2-minimap-hero-sprites",
+        "scope": null,
+        "escapedName": "dota2-minimap-hero-sprites",
+        "name": "dota2-minimap-hero-sprites",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "D:\\WEB\\GIT\\dota2-timer\\frontend"
+    ]
+  ],
+  "_from": "dota2-minimap-hero-sprites@latest",
+  "_id": "dota2-minimap-hero-sprites@2.0.0",
+  "_inCache": true,
+  "_location": "/dota2-minimap-hero-sprites",
+  "_nodeVersion": "5.4.1",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/dota2-minimap-hero-sprites-2.0.0.tgz_1459644955641_0.05494142300449312"
+  },
+  "_npmUser": {
+    "name": "bontscho",
+    "email": "npm@bontscho.com"
+  },
+  "_npmVersion": "3.7.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "dota2-minimap-hero-sprites",
+    "scope": null,
+    "escapedName": "dota2-minimap-hero-sprites",
+    "name": "dota2-minimap-hero-sprites",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/dota2-minimap-hero-sprites/-/dota2-minimap-hero-sprites-2.0.0.tgz",
+  "_shasum": "cafcd36b85655d67cc26f113b732b469646635c1",
+  "_shrinkwrap": null,
+  "_spec": "dota2-minimap-hero-sprites",
+  "_where": "D:\\WEB\\GIT\\dota2-timer\\frontend",
+  "author": {
+    "name": "bontscho"
+  },
+  "bugs": {
+    "url": "https://github.com/bontscho/dota2-minimap-hero-sprites/issues"
+  },
+  "dependencies": {},
+  "description": "CSS Spritesheet for the Dota 2 minimap hero icons",
+  "devDependencies": {
+    "lodash": "^3.10.0",
+    "swig": "1.3.2",
+    "vdf": "0.0.2"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "cafcd36b85655d67cc26f113b732b469646635c1",
+    "tarball": "https://registry.npmjs.org/dota2-minimap-hero-sprites/-/dota2-minimap-hero-sprites-2.0.0.tgz"
+  },
+  "gitHead": "44f18ca7086a432406f10127fdf5dc7d214ee8b4",
+  "homepage": "https://github.com/bontscho/dota2-minimap-hero-sprites",
+  "keywords": [
+    "dota",
+    "dota 2",
+    "hero",
+    "icon",
+    "icons",
+    "heroes",
+    "pictures",
+    "minimap",
+    "spritesheet",
+    "css"
+  ],
+  "maintainers": [
+    {
+      "name": "bontscho",
+      "email": "npm@bontscho.com"
+    }
+  ],
+  "name": "dota2-minimap-hero-sprites",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bontscho/dota2-minimap-hero-sprites.git"
+  },
+  "scripts": {},
+  "version": "2.0.0"
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router";
-
+import { PageFooter } from './PageFooter.js';
 
 export class PageNotFound extends Component {
   render() {
@@ -12,14 +12,15 @@ export class PageNotFound extends Component {
                 <div className="col-lg-12">
                   <div className="header-content-inner">
                       <h1 id="homeHeading">404</h1>
-                      <h2 id="homeHeading">Your journey ends here :(</h2>
+                      <h2 id="homeHeading">Your journey ends here :(s</h2>
                       <hr/>
-                      <p><Link href="/">Back to Travel Buddy</Link></p>
+                      <p><Link href="/">Back to Home</Link></p>
                   </div>
                 </div>
               </div>
             </div>
         </header>
+        <PageFooter/>
       </div>
     );
   }
