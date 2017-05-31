@@ -22,7 +22,7 @@ import { App } from './App';
 // @Heracek style
 import { configureStore } from './store/configureStore.js';
 import { loadState, saveState } from './store/localState.js';
-import { setAuthToken } from './api.js'
+import { setAuthToken } from './api.js';
 
 const persistedState = loadState();
 if (persistedState

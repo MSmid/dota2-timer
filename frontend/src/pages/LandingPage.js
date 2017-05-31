@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Button, Collapse, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { PageFooter } from './PageFooter.js';
 import { MainNavigation } from './MainNavigation.js';
@@ -7,8 +8,9 @@ import { TimerContainer } from '../components/Timer/TimerWrapper.js';
 import Helmet from 'react-helmet';
 import CircleTimer from 'circle-timer';
 import { Link } from 'react-router';
+import { fetchHeroes } from '../actions/heroes.js';
 
-export class LandingPage extends Component {
+class LandingPageRaw extends Component {
 
   constructor(props) {
     super(props);
@@ -18,7 +20,7 @@ export class LandingPage extends Component {
   }
 
   componentDidMount() {
-
+    console.log(this.props.fetchHeroes());
   }
 
   render() {
@@ -51,3 +53,22 @@ export class LandingPage extends Component {
     );
   };
 }
+
+const mapStateToProps = (state) => {
+  return {
+    heroes: state.heroes
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchHeroes: () => {
+      dispatch(fetchHeroes())
+    }
+  }
+}
+
+export const LandingPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LandingPageRaw);

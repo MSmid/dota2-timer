@@ -1,5 +1,6 @@
 import throttle from 'lodash/throttle';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk';
 
 import { rootReducer } from '../reducers'
 
@@ -25,6 +26,7 @@ export function configureStore(preloadedState, saveState) {
   const store = createStore(
     rootReducer,
     preloadedState,
+    applyMiddleware(thunk)
   );
 
   if (saveState) {
