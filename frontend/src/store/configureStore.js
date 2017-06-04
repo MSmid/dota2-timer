@@ -25,8 +25,7 @@ function stateThatShouldBeSaved(state) {
 export function configureStore(preloadedState, saveState) {
   const store = createStore(
     rootReducer,
-    preloadedState,
-    applyMiddleware(thunk)
+    preloadedState
   );
 
   if (saveState) {

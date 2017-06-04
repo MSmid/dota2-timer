@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import { Button, Collapse, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { PageFooter } from './PageFooter.js';
 import { MainNavigation } from './MainNavigation.js';
-import { TimerContainer } from '../components/Timer/TimerWrapper.js';
-// import Scroll from 'react-scroll';
+import { TimerPage } from './TimerPage.js';
+import Scroll from 'react-scroll';
 import Helmet from 'react-helmet';
 import CircleTimer from 'circle-timer';
 import { Link } from 'react-router';
+
+const Element = Scroll.Element;
+const ScrollableLink = Scroll.Link;
 
 class LandingPageRaw extends Component {
 
@@ -39,18 +42,21 @@ class LandingPageRaw extends Component {
                         <h1 id="homeHeading" className="text-glow">Dota 2 Timer</h1>
                         <hr className="light"/>
                         <p>Track ultimate's cooldowns and never be suprised again!</p>
-                        <Link onClick={() => {console.log('clicked');this.setState({open: !this.state.open});}} className="btn btn-primary btn-xl" to="/">GET STARTED!</Link>
+                        <ScrollableLink
+                          onClick={() => {console.log('clicked');this.setState({open: !this.state.open});}}
+                          className="btn btn-primary btn-xl"
+                          spy={true} smooth={true} duration={500} to="timer">
+                        GET STARTED!
+                        </ScrollableLink>
                     </div>
                 </div>
             </header>
 
-            {/* <Element name="timer"> */}
-                <section className="bg-primary" id="timer">
-                    <TimerContainer />
-                </section>
-            {/* </Element> */}
+            <Element className="section-wrapper" name="timer">
+              <TimerPage />
+            </Element>
 
-            <PageFooter/>
+            {/* <PageFooter/> */}
 
         </div>
     );
