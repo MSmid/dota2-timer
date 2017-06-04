@@ -5,7 +5,7 @@ import { PageFooter } from './PageFooter.js';
 export class PageNotFound extends Component {
   render() {
     return (
-      <div id="main-wrapper" class="not-found-page">
+      <div id="main-wrapper" className="not-found-page">
         <header>
             <div className="header-content">
               <div className="row">

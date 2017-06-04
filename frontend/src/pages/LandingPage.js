@@ -8,7 +8,6 @@ import { TimerContainer } from '../components/Timer/TimerWrapper.js';
 import Helmet from 'react-helmet';
 import CircleTimer from 'circle-timer';
 import { Link } from 'react-router';
-import { fetchHeroes } from '../actions/heroes.js';
 
 class LandingPageRaw extends Component {
 
@@ -20,7 +19,11 @@ class LandingPageRaw extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.fetchHeroes());
+    console.log('-- props', this.props.heroes);
+  }
+
+  componentDidUpdate() {
+    console.log('--- props updated', this.props.heroes);
   }
 
   render() {
@@ -36,7 +39,7 @@ class LandingPageRaw extends Component {
                         <h1 id="homeHeading" className="text-glow">Dota 2 Timer</h1>
                         <hr className="light"/>
                         <p>Track ultimate's cooldowns and never be suprised again!</p>
-                        <Link className="btn btn-primary btn-xl" to="/timer">GET STARTED!</Link>
+                        <Link onClick={() => {console.log('clicked');this.setState({open: !this.state.open});}} className="btn btn-primary btn-xl" to="/">GET STARTED!</Link>
                     </div>
                 </div>
             </header>
@@ -60,15 +63,6 @@ const mapStateToProps = (state) => {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchHeroes: () => {
-      dispatch(fetchHeroes())
-    }
-  }
-}
-
 export const LandingPage = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(LandingPageRaw);
