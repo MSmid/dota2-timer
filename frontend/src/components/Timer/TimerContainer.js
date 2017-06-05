@@ -43,14 +43,14 @@ class TimerContainerBase extends Component {
           </div>
           <div className="row">
             <div className="col-md-2">
-              <Select
+              {/* <Select
                 name="hero"
                 placeholder="Pick hero"
                 value={this.state.selectedHero}
                 onChange={(selected) => {this.setState({ selectedHero: selected.value })}}
                 multi={false}
                 options={this.getTransformedHeroes()}
-               />
+               /> */}
             </div>
 
           </div>
@@ -59,22 +59,16 @@ class TimerContainerBase extends Component {
               <Hero number="1" heroes={this.props.heroes.heroes}/>
             </div>
             <div className="col-md-5ths">
-              {/* <Hero number="2"/> */}
+              <Hero number="2" heroes={this.props.heroes.heroes}/>
             </div>
             <div className="col-md-5ths">
-              <div className="hero hero-3">
-
-              </div>
+              <Hero number="3" heroes={this.props.heroes.heroes}/>
             </div>
             <div className="col-md-5ths">
-              <div className="hero hero-4">
-
-              </div>
+              <Hero number="4" heroes={this.props.heroes.heroes}/>
             </div>
             <div className="col-md-5ths">
-              <div className="hero hero-5">
-
-              </div>
+              <Hero number="5" heroes={this.props.heroes.heroes}/>
             </div>
           </div>
 

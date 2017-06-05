@@ -17,7 +17,7 @@ class LandingPageRaw extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      show: true
     };
   }
 
@@ -36,21 +36,27 @@ class LandingPageRaw extends Component {
         <div id="main-wrapper">
             <Helmet title="Dota 2 Timer"/>
             {/* <MainNavigation/> */}
-            <header>
-                <div className="header-content">
-                    <div className="header-content-inner">
-                        <h1 id="homeHeading" className="text-glow">Dota 2 Timer</h1>
-                        <hr className="light"/>
-                        <p>Track ultimate's cooldowns and never be suprised again!</p>
-                        <ScrollableLink
-                          onClick={() => {console.log('clicked');this.setState({open: !this.state.open});}}
-                          className="btn btn-primary btn-xl"
-                          spy={true} smooth={true} duration={500} to="timer">
-                        GET STARTED!
-                        </ScrollableLink>
-                    </div>
-                </div>
-            </header>
+            {
+              this.state.show ?
+              <header>
+                  <div className="header-content">
+                      <div className="header-content-inner">
+                          <h1 id="homeHeading" className="text-glow">Dota 2 Timer</h1>
+                          <hr className="light"/>
+                          <p>Track ultimate's cooldowns and never be suprised again!</p>
+                          <ScrollableLink
+                            onClick={() => {console.log('clicked');}}
+                            className="btn btn-primary btn-xl"
+                            spy={true} smooth={true} duration={500} to="timer" onSetActive={() => {this.setState({show: false});}}>
+                          GET STARTED!
+                          </ScrollableLink>
+                      </div>
+                  </div>
+              </header>
+              :
+              undefined
+            }
+
 
             <Element className="section-wrapper" name="timer">
               <TimerPage />

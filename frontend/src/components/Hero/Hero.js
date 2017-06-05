@@ -7,8 +7,10 @@ export class Hero extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      selectedHero: undefined
     };
+    this.handlePick = this.handlePick.bind(this);
   }
 
   componentDidMount() {
@@ -22,18 +24,36 @@ export class Hero extends Component {
     return heroes;
   }
 
+  handlePick() {
+    this.setState({ open: !this.state.open });
+  }
+
   render() {
     return (
       <div className={`hero hero-${this.props.number}`}>
-        <i className="fa fa-plus"></i>
-        <Select
-          name="hero"
-          placeholder="Pick hero"
-          value={this.state.selectedHero}
-          onChange={(selected) => {this.setState({ selectedHero: selected.value })}}
-          multi={false}
-          options={this.getTransformedHeroes()}
-         />
+        <div className="" onClick={this.handlePick}>
+
+          {
+            this.state.selectedHero ?
+            <i className={`d2mh hero-${this.state.selectedHero}`}></i>
+            :
+            <i className="fa fa-plus"></i>
+          }
+        </div>
+        {
+          this.state.open ?
+          <Select
+            name="hero"
+            placeholder="Pick hero"
+            value={this.state.selectedHero}
+            onChange={(selected) => {this.setState({ selectedHero: selected.value, open: false })}}
+            multi={false}
+            options={this.getTransformedHeroes()}
+          />
+          :
+          undefined
+        }
+
       </div>
     );
   };
