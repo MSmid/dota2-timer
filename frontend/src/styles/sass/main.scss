@@ -28,13 +28,14 @@ body {
 }
 
 /* Hero Component */
-
 .hero {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  background: rgba(255,255,255,0.2);
   &-1 {
+  }
+  &-portrait {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    background: rgba(255,255,255,0.2);
   }
 }
 

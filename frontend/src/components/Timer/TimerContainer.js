@@ -56,7 +56,7 @@ class TimerContainerBase extends Component {
           </div>
           <div className="row lineup">
             <div className="col-md-5ths">
-              <Hero number="1" heroes={this.props.heroes.heroes}/>
+              <Hero number="1" heroes={this.props.heroes.heroes} {...this.props}/>
             </div>
             <div className="col-md-5ths">
               <Hero number="2" heroes={this.props.heroes.heroes}/>
