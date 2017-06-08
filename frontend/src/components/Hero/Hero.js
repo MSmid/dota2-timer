@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import _ from 'lodash';
+import { Ability } from '../Ability/Ability';
 
 export class Hero extends Component {
 
@@ -44,7 +45,8 @@ export class Hero extends Component {
             abilities.map(function(item) {
               // let out = this.getAbilityTemplate(item);
               // return out;
-              return <div key={item.id}>{item.displayName}<img src={`/assets/icons/abilities/${item.name}.png`}/></div>
+              // return <div key={item.id}>{item.displayName}<img src={`/assets/icons/abilities/${item.name}.png`}/></div>
+              return <Ability key={item.id} ability={item} />
             })
           }
         </div>
