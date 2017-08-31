@@ -59,16 +59,16 @@ class TimerContainerBase extends Component {
               <Hero number="1" heroes={this.props.heroes.heroes} {...this.props}/>
             </div>
             <div className="col-md-5ths">
-              <Hero number="2" heroes={this.props.heroes.heroes}/>
+              <Hero number="2" heroes={this.props.heroes.heroes} {...this.props}/>
             </div>
             <div className="col-md-5ths">
-              <Hero number="3" heroes={this.props.heroes.heroes}/>
+              <Hero number="3" heroes={this.props.heroes.heroes} {...this.props}/>
             </div>
             <div className="col-md-5ths">
-              <Hero number="4" heroes={this.props.heroes.heroes}/>
+              <Hero number="4" heroes={this.props.heroes.heroes} {...this.props}/>
             </div>
             <div className="col-md-5ths">
-              <Hero number="5" heroes={this.props.heroes.heroes}/>
+              <Hero number="5" heroes={this.props.heroes.heroes} {...this.props}/>
             </div>
           </div>
 
