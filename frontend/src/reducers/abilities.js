@@ -10,8 +10,31 @@ Call non-pure functions, e.g. Date.now() or Math.random().
 //   TIMER_ADD
 // } from "../actions/timer.js";
 
+/*
+Non-mandatory fields:
+
+talentCooldowns [array] - similiar to regular cooldowns
+talentCooldownReduction [int] - cooldown reduction in percent (similiar to octarine)
+scepterCooldowns [array] - similiar to regular cooldowns
+
+
+
+
+*/
+
 const initialState = {
   abilities: [
+    {
+      displayName: 'Test',
+      name: 'enigma_black_hole',
+      id: 12345,
+      heroId: 8888,
+      cooldowns: [1000,100,10],
+      scepterCooldowns: [200],
+      talentCooldownReduction: 10,
+      talentCooldowns: [2000,200,20]
+
+    },
     {
       displayName: 'Black Hole',
       name: 'enigma_black_hole',
@@ -22,7 +45,7 @@ const initialState = {
     {
       displayName: 'Chain Frost',
       name: 'lich_chain_frost',
-      id: '5137',
+      id: 5137,
       heroId: '31',
       cooldowns: [100, 80, 60]
     },
@@ -39,7 +62,7 @@ const initialState = {
       id: 5185,
       heroId: 41,
       cooldowns: [140, 125, 110],
-      aghanimCooldowns: [60]
+      scepterCooldowns: [60]
     },
     {
       displayName: 'Dark Rift',
@@ -139,7 +162,7 @@ const initialState = {
       id: 5047,
       heroId: 26,
       cooldowns: [160, 100, 40],
-      aghanimCooldowns: [100, 60, 20]
+      scepterCooldowns: [100, 60, 20]
     },
     {
       displayName: "Flaming Lasso",
@@ -262,7 +285,7 @@ const initialState = {
       id: 5356,
       heroId: 71,
       cooldowns: [80, 70, 60],
-      aghanimCooldowns: [20]
+      scepterCooldowns: [20]
     },
     {
       displayName: "Omnislash",
@@ -270,7 +293,7 @@ const initialState = {
       id: 5030,
       heroId: 8,
       cooldowns: [130, 120, 110],
-      aghanimCooldowns: [70]
+      scepterCooldowns: [70]
     },
     {
       displayName: "Overgrowth",
@@ -286,7 +309,7 @@ const initialState = {
       id: 5429,
       heroId: 81,
       cooldowns: [130],
-      aghanimCooldowns: [110],
+      scepterCooldowns: [110],
       talentCooldownReduction: 20
     },
     {
@@ -295,7 +318,7 @@ const initialState = {
       id: 5181,
       heroId: 40,
       cooldowns: [140, 120, 100],
-      aghanimCooldowns: [140, 120, 60]
+      scepterCooldowns: [140, 120, 60]
     },
     {
       displayName: "Primal Roar",
@@ -303,7 +326,7 @@ const initialState = {
       id: 5177,
       heroId: 38,
       cooldowns: [80, 75, 70],
-      aghanimCooldowns: [45],
+      scepterCooldowns: [45],
       talentCooldownReduction: 12
     },
     {
@@ -327,7 +350,7 @@ const initialState = {
       id: 5161,
       heroId: 36,
       cooldowns: [100, 85, 70],
-      aghanimCooldowns: [55, 40, 25]
+      scepterCooldowns: [55, 40, 25]
     },
     {
       displayName: "Reincarnation",
@@ -385,7 +408,7 @@ const initialState = {
       id: 5176,
       heroId: 39,
       cooldowns: [135],
-      aghanimCooldowns: [40],
+      scepterCooldowns: [40],
       talentCooldownReduction: 12
     },
     {
@@ -394,7 +417,7 @@ const initialState = {
       id: 5474,
       heroId: 90,
       cooldowns: [80, 70, 60],
-      aghanimCooldowns: [0]
+      scepterCooldowns: [0]
     },
     {
       displayName: "Stampede",

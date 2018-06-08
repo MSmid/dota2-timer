@@ -2,6 +2,11 @@ var heroes = {
 "result": {
   "heroes":[
     {
+      "name": "npc_dota_hero_axe",
+      "id": 8888,
+      "localized_name": "Test"
+    },
+    {
     "name":"npc_dota_hero_antimage",
     "id":1,
     "localized_name":"Anti-Mage"

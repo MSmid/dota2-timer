@@ -246,6 +246,15 @@
   width: 150px;
   height: 150px;
   background: rgba(255, 255, 255, 0.2); }
+  .hero-portrait .fa, .hero-portrait .d2mh {
+    position: relative;
+    top: 37px;
+    font-size: 5em;
+    text-align: center; }
+  .hero-portrait .dm2h {
+    left: 56px; }
+  .hero-portrait .fa {
+    width: 100%; }
 
 /* Ability Component */
 .ability-portrait {
@@ -966,11 +975,17 @@ body {
 .form-group .btn-group {
   padding-top: 5px; }
 
-.btn-default.active:focus {
-  border: none; }
-
 .btn-group .btn-default.active {
   background: #bf0a00; }
+
+.btn:focus, .btn.btn-primary:focus {
+  background: none;
+  border: none; }
+
+.btn.selected, .btn.btn-primary.selected {
+  color: white;
+  background-color: #ee4b28;
+  border-color: #ed431f; }
 
 a:hover {
   cursor: pointer;

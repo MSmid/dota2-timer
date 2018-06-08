@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import CircleTimer from 'circle-timer';
 import _ from 'lodash';
+
+const OCTARINE_MULTIPLIER = 0.75;
 
 export class Ability extends Component {
 
@@ -8,42 +11,147 @@ export class Ability extends Component {
     this.state = {
       cooldowns: [],
       currentCooldown: undefined,
+      currentLevel: undefined,
       selected: {
         octarine: false,
         scepterUpgrade: false,
-        talentCooldown: false,
+        talentCooldowns: false,
         talentReduction: false,
       }
     };
     this.handleCooldowns = this.handleCooldowns.bind(this);
     this.renderLevels = this.renderLevels.bind(this);
+    this.handleOptions = this.handleOptions.bind(this);
   }
 
   componentDidMount() {
-    console.log('--- ability props', this.props);
+    console.log('--- ability props', this.props.ability);
     this.setState({ cooldowns: this.props.ability.cooldowns });
+    this.setState({ currentCooldown: this.props.ability.cooldowns[0] });
+    this.setState({ currentLevel: 0 });
   }
 
-  handleCooldowns(cooldown) {
-    console.log('clicked Level');
-    this.setState( {currentCooldown: cooldown} );
+  handleCooldowns(cooldown, key) {
+    console.log('clicked Level', cooldown);
+    // this.setState( {currentCooldown: cooldown} );
+    this.setState( {currentLevel: key} );
+    this.calculateCooldowns('levels', cooldown, true);
   }
 
   handleOptions(option) {
+    // console.log('clicked option', option);
     switch (option) {
       case 'scepter-upgrade':
-        this.setState(...{selected: {scepterUpgrade: !this.state.selected.scepterUpgrade}});
+        this.setState(prevState => ({
+          selected: {
+            ...prevState.selected,
+            scepterUpgrade: !this.state.selected.scepterUpgrade
+          }
+        }));
+        this.calculateCooldowns(option, undefined, !this.state.selected.scepterUpgrade);
         break;
-      default:
+      case 'octarine':
+        this.setState(prevState => ({
+          selected: {
+            ...prevState.selected,
+            octarine: !this.state.selected.octarine
+          }
+        }));
+        this.calculateCooldowns(option, undefined, !this.state.selected.octarine);
+        break;
+      case 'talent-reduction':
+        this.setState(prevState => ({
+          selected: {
+            ...prevState.selected,
+            talentReduction: !this.state.selected.talentReduction
+          }
+        }));
+        this.calculateCooldowns(option, undefined, !this.state.selected.talentReduction);
+        break;
+      case 'talent-cooldowns':
+        this.setState(prevState => ({
+          selected: {
+            ...prevState.selected,
+            talentCooldowns: !this.state.selected.talentCooldowns
+          }
+        }));
+        this.calculateCooldowns(option, undefined, !this.state.selected.talentCooldowns);
+        break;
 
+      default:
     }
   }
 
-  renderLevels(ability) {
+  calculateCooldowns(option, cooldown, selected) {
+    let newCooldown = (cooldown ? cooldown : this.props.ability.cooldowns[this.state.currentLevel]);
+    console.log('calculateCooldowns() fired!', newCooldown);
+    console.log('-- params: ', option, cooldown, selected);
+    //check scepter upgrade
+    if ((option == "scepter-upgrade" && selected) || (this.state.selected.scepterUpgrade)) {
+      console.log('--- <!> calculateCooldowns AGHANIM fired');
+      if (option == "scepter-upgrade" && !selected) {
+
+      } else {
+        if (this.props.ability.scepterCooldowns.length == 1) {
+          newCooldown = this.props.ability.scepterCooldowns[0];
+        } else {
+          newCooldown = this.props.ability.scepterCooldowns[this.state.currentLevel];
+        }
+      }
+    }
+    //check talent cooldown
+    if ((option == "talent-cooldowns" && selected) || (this.state.selected.talentCooldowns)) {
+      if(option == "talent-cooldowns" && !selected) {
+
+      } else {
+        if (this.props.ability.talentCooldowns.length == 1) {
+          newCooldown = this.props.ability.talentCooldowns[0];
+        } else {
+          newCooldown = this.props.ability.talentCooldowns[this.state.currentLevel];
+        }
+      }
+    }
+    //calculare octarine reduction
+    if ((option == "octarine" && selected) || (this.state.selected.octarine)) {
+      console.log('--- <!> calculateCooldowns OCTARINE fired /// state: ', this.state.selected.octarine);
+
+      if (option == "octarine" && !selected) {
+
+      } else {
+        newCooldown = newCooldown * OCTARINE_MULTIPLIER;
+      }
+    }
+    //calculate talents reduction
+    if ((option == "talent-reduction" && selected) || (this.state.selected.talentReduction)) {
+      if (option == "talent-reduction" && !selected) {
+
+      } else {
+        newCooldown = newCooldown * ((100 - this.props.ability.talentCooldownReduction) / 100);
+        console.log((100 - this.props.ability.talentCooldownReduction) / 100);
+      }
+    }
+    //set cooldown
+    this.setState({currentCooldown: Math.round(newCooldown * 100 + Number.EPSILON)/100});
+  }
+
+  startTimer() {
+    var element = document.getElementById('circle-timer');
+    this.circleTimer = new CircleTimer({
+      rootElement: element,
+      color: 'gray',
+      backgroundRingColor: 'white',
+      radius: 100,
+      thickness: 5,
+    });
+    this.circleTimer.startTimer();
+  }
+
+  renderLevels(ability, currentLevel) {
     let handleCooldowns = this.handleCooldowns;
     if (ability.cooldowns.length >= 1) {
       return ability.cooldowns.map(function(cooldown, key) {
-        return <button key={key+1} className="btn btn-primary" onClick={() => handleCooldowns(cooldown)}>LVL {key+1}</button>;
+        var active = (currentLevel == key ? 'selected' : '');
+        return <button key={key+1} className={`btn btn-primary ${active}`} onClick={() => handleCooldowns(cooldown, key)}>LVL {key+1}</button>;
       });
     }
   }
@@ -72,17 +180,34 @@ export class Ability extends Component {
         </div>
         <div className="ability-controls">
           <div className="levels">
-            {this.renderLevels(ability)}
+            {this.renderLevels(ability, this.state.currentLevel)}
           </div>
-          <div className="talents">
-
-          </div>
-          <div className="scepter-upgrade">
-            <button className="btn btn-primary" onClick={() => this.handleOptions('scepter-upgrade')}>Aghanim</button>
-          </div>
+          {/*Octarine upgrade*/}
           <div className="octarine">
-
+            <button className={"btn btn-primary " + (this.state.selected.octarine ? 'selected' : '')} onClick={() => this.handleOptions('octarine')}>Octarine</button>
           </div>
+          {/*Aghanim upgrade*/}
+          {ability.scepterCooldowns && ability.scepterCooldowns.length > 0 ?
+            <div className="scepter-upgrade">
+              <button className={"btn btn-primary " + (this.state.selected.scepterUpgrade ? 'selected' : '')} onClick={() => this.handleOptions('scepter-upgrade')}>Aghanim upgrade</button>
+            </div>
+            : undefined
+          }
+          {/*Talent cooldown reduction upgrade*/}
+          {ability.talentCooldownReduction ?
+            <div className="talents">
+              <button className={"btn btn-primary " + (this.state.selected.talentReduction ? 'selected' : '')} onClick={() => this.handleOptions('talent-reduction')}>Talent Reduction</button>
+            </div>
+            : undefined
+          }
+          {/*Talent cooldown upgrade*/}
+          {ability.talentCooldowns && ability.talentCooldowns.length > 0 ?
+            <div className="talents">
+              <button className={"btn btn-primary " + (this.state.selected.talentCooldowns ? 'selected' : '')} onClick={() => this.handleOptions('talent-cooldowns')}>Talent Cooldown</button>
+            </div>
+            : undefined
+          }
+          <button className="btn btn-primary">Start</button>
           {/* <button className="btn btn-primary">LVL 1</button>
           <button className="btn btn-primary">LVL 2</button>
           <button className="btn btn-primary">LVL 3</button> */}

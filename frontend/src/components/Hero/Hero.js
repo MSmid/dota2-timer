@@ -37,6 +37,7 @@ export class Hero extends Component {
   }
 
   constructAbilities() {
+    console.log('-- constructAbilities', this.state.selectedHero);
     let abilities = this.selectAbilities();
     if (abilities) {
       return(

@@ -36,6 +36,19 @@ body {
     width: 150px;
     height: 150px;
     background: rgba(255,255,255,0.2);
+    .fa, .d2mh {
+      position: relative;
+      top: 37px;
+      font-size: 5em;
+      text-align: center;
+    }
+    .dm2h {
+      left: 56px;
+      
+    }
+    .fa {
+      width: 100%;
+    }
   }
 }
 
