@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CircleTimer from 'circle-timer';
+import Countdown from 'react-countdown-now';
 import _ from 'lodash';
 
 const OCTARINE_MULTIPLIER = 0.75;
@@ -17,7 +18,8 @@ export class Ability extends Component {
         scepterUpgrade: false,
         talentCooldowns: false,
         talentReduction: false,
-      }
+      },
+      started: false
     };
     this.handleCooldowns = this.handleCooldowns.bind(this);
     this.renderLevels = this.renderLevels.bind(this);
@@ -134,13 +136,17 @@ export class Ability extends Component {
     this.setState({currentCooldown: Math.round(newCooldown * 100 + Number.EPSILON)/100});
   }
 
-  startTimer() {
-    var element = document.getElementById('circle-timer');
+  startTimer(abilityName) {
+    this.setState( {started: !this.state.started} );
+    var element = document.getElementById(abilityName);
     this.circleTimer = new CircleTimer({
       rootElement: element,
+      timerDuration: this.state.currentCooldown,
+      circleDuration: this.state.currentCooldown,
+      timerClass: 'timer-glow',
       color: 'gray',
       backgroundRingColor: 'white',
-      radius: 100,
+      radius: 75,
       thickness: 5,
     });
     this.circleTimer.startTimer();
@@ -169,14 +175,24 @@ export class Ability extends Component {
     return(
       <div className={`ability ability-${ability.name}`}>
         <h3>{this.state.currentCooldown} {this.state.selected.scepterUpgrade}</h3>
-        <div className={`ability-portrait ability-${ability.name}`}
+        <div
+          id={ability.name}
+          className={`ability-portrait ability-${ability.name}` + ' ' + (this.state.started ? 'started' : '')}
           style={{
             background: "url(/assets/icons/abilities/" + ability.name + ".png)",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat"
           }}
-          >
-
+        >
+          {this.state.started ?
+            <Countdown
+              date={Date.now() + this.state.currentCooldown * 1000 + 1000}
+              intervalDelay={0}
+              precision={3}
+              renderer={props => <div className="countdown">{Math.floor(props.total / 1000)}</div>}
+            />
+            : undefined
+          }
         </div>
         <div className="ability-controls">
           <div className="levels">
@@ -207,7 +223,7 @@ export class Ability extends Component {
             </div>
             : undefined
           }
-          <button className="btn btn-primary">Start</button>
+          <button className="btn btn-primary" onClick={() => this.startTimer(ability.name)}>Start</button>
           {/* <button className="btn btn-primary">LVL 1</button>
           <button className="btn btn-primary">LVL 2</button>
           <button className="btn btn-primary">LVL 3</button> */}

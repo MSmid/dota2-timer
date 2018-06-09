@@ -16,16 +16,16 @@ class TimerContainerBase extends Component {
   }
 
   componentDidMount() {
-    var element = document.getElementById('circle-timer');
-    this.circleTimer = new CircleTimer({
-      rootElement: element,
-      color: 'gray',
-      backgroundRingColor: 'white',
-      radius: 100,
-      thickness: 5,
-    });
-    this.circleTimer.startTimer();
-    console.log('---timer container', this.props);
+    // var element = document.getElementById('circle-timer');
+    // this.circleTimer = new CircleTimer({
+    //   rootElement: element,
+    //   color: 'gray',
+    //   backgroundRingColor: 'white',
+    //   radius: 100,
+    //   thickness: 5,
+    // });
+    // this.circleTimer.startTimer();
+    // console.log('---timer container', this.props);
   }
 
   getTransformedHeroes() {

@@ -1,3 +1,5 @@
+@import 'mixins';
+
 /* Dota 2 Timer Custom styling */
 #root {
   height: 100%;
@@ -44,7 +46,7 @@ body {
     }
     .dm2h {
       left: 56px;
-      
+
     }
     .fa {
       width: 100%;
@@ -60,6 +62,23 @@ body {
     height: 150px;
     background: rgba(255,255,255,0.3);
   }
+  .started, .timer-glow, .timer-glow-warning {
+    border-radius: 50%;
+  }
+
+}
+.timer-glow {
+  @include glow(1.5s);
+
+  &-warning {
+    @include glow(0.2s);
+  }
+}
+.countdown {
+  position: absolute;
+  left: 38%;
+  top: 34%;
+  font-size: 36px;
 }
 
 /* PageFooter Component */

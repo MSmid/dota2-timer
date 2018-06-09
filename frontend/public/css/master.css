@@ -263,6 +263,24 @@
   height: 150px;
   background: rgba(255, 255, 255, 0.3); }
 
+.ability .started, .ability .timer-glow, .ability .timer-glow-warning {
+  border-radius: 50%; }
+
+.timer-glow {
+  -webkit-animation: box-neon2 1.5s ease-in-out infinite alternate;
+  -moz-animation: box-neon2 1.5s ease-in-out infinite alternate;
+  animation: box-neon2 1.5s ease-in-out infinite alternate; }
+  .timer-glow-warning {
+    -webkit-animation: box-neon2 0.2s ease-in-out infinite alternate;
+    -moz-animation: box-neon2 0.2s ease-in-out infinite alternate;
+    animation: box-neon2 0.2s ease-in-out infinite alternate; }
+
+.countdown {
+  position: absolute;
+  left: 38%;
+  top: 34%;
+  font-size: 36px; }
+
 /* PageFooter Component */
 footer.footer-app {
   padding: 0; }

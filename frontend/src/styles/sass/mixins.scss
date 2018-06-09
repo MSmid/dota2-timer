@@ -1,0 +1,5 @@
+@mixin glow($duration) {
+  -webkit-animation: box-neon2 $duration ease-in-out infinite alternate;
+  -moz-animation: box-neon2 $duration ease-in-out infinite alternate;
+  animation: box-neon2 $duration ease-in-out infinite alternate;
+}
