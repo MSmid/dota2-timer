@@ -21,6 +21,7 @@ export class Ability extends Component {
       },
       started: false
     };
+    this.circleTimer = undefined;
     this.handleCooldowns = this.handleCooldowns.bind(this);
     this.renderLevels = this.renderLevels.bind(this);
     this.handleOptions = this.handleOptions.bind(this);
@@ -152,6 +153,11 @@ export class Ability extends Component {
     this.circleTimer.startTimer();
   }
 
+  pauseTimer() {
+    console.log('paused!', this.circleTimer);
+    this.circleTimer.pauseTimer();
+  }
+
   renderLevels(ability, currentLevel) {
     let handleCooldowns = this.handleCooldowns;
     if (ability.cooldowns.length >= 1) {
@@ -224,6 +230,7 @@ export class Ability extends Component {
             : undefined
           }
           <button className="btn btn-primary" onClick={() => this.startTimer(ability.name)}>Start</button>
+          <button className="btn btn-primary" onClick={() => this.pauseTimer()}>Pause</button>
           {/* <button className="btn btn-primary">LVL 1</button>
           <button className="btn btn-primary">LVL 2</button>
           <button className="btn btn-primary">LVL 3</button> */}
