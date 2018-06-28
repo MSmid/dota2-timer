@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CircleTimer from 'circle-timer';
+import {AbilityCooldown} from './AbilityCooldown.js';
 import Countdown from 'react-countdown-now';
 import _ from 'lodash';
 
@@ -162,8 +163,8 @@ export class Ability extends Component {
     console.log('started!', this.circleTimer);
   }
 
-  drawTimer() {
-
+  updateTimer(conf) {
+    this.circleTimer.updateTimer(conf);
   }
 
   pauseTimer() {
@@ -191,27 +192,22 @@ export class Ability extends Component {
 
   render() {
     const { ability } = this.props;
+
+    let abilityIconStyle = {
+      background: "url(/assets/icons/abilities/" + ability.name + ".png)",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat"
+    };
+
     return(
       <div className={`ability ability-${ability.name}`}>
         <h3>{this.state.currentCooldown} {this.state.selected.scepterUpgrade}</h3>
         <div
           id={ability.name}
           className={`ability-portrait ability-${ability.name}` + ' ' + (this.state.started ? 'started' : '')}
-          style={{
-            background: "url(/assets/icons/abilities/" + ability.name + ".png)",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat"
-          }}
+          style={abilityIconStyle}
         >
-          {this.state.started ?
-            <Countdown
-              date={Date.now() + this.state.currentCooldown * 1000 + 1000}
-              intervalDelay={0}
-              precision={3}
-              renderer={props => <div className="countdown">{Math.floor(props.total / 1000)}</div>}
-            />
-            : undefined
-          }
+          {this.state.started ? <AbilityCooldown duration={this.state.currentCooldown} /> : undefined}
         </div>
         <div className="ability-controls">
           <div className="levels">
