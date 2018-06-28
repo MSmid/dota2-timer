@@ -5,6 +5,8 @@ import _ from 'lodash';
 
 const OCTARINE_MULTIPLIER = 0.75;
 
+var l = (msg) => console.log(msg);
+
 export class Ability extends Component {
 
   constructor(props) {
@@ -138,19 +140,30 @@ export class Ability extends Component {
   }
 
   startTimer(abilityName) {
-    this.setState( {started: !this.state.started} );
-    var element = document.getElementById(abilityName);
-    this.circleTimer = new CircleTimer({
-      rootElement: element,
-      timerDuration: this.state.currentCooldown,
-      circleDuration: this.state.currentCooldown,
-      timerClass: 'timer-glow',
-      color: 'gray',
-      backgroundRingColor: 'white',
-      radius: 75,
-      thickness: 5,
-    });
+    this.setState( {started: true} );
+    //this.setState( {started: !this.state.started} );
+    if (!this.circleTimer) {
+      var element = document.getElementById(abilityName);
+      this.circleTimer = new CircleTimer({
+        rootElement: element,
+        timerDuration: this.state.currentCooldown,
+        circleDuration: this.state.currentCooldown,
+        timerClass: 'timer-glow',
+        color: 'gray',
+        backgroundRingColor: 'white',
+        radius: 75,
+        thickness: 5,
+      });
+    } else {
+      l('updated');
+      this.circleTimer.updateTimer({timerDuration: this.state.currentCooldown, circleDuration: this.state.currentCooldown});
+    }
     this.circleTimer.startTimer();
+    console.log('started!', this.circleTimer);
+  }
+
+  drawTimer() {
+
   }
 
   pauseTimer() {
