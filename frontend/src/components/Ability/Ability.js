@@ -88,7 +88,7 @@ export class Ability extends Component {
     }
   }
 
-  calculateCooldowns(option, key = 0, selected) {
+  calculateCooldowns(option, key = this.state.currentLevel, selected) {
     let newCooldown = (key ? this.props.ability.cooldowns[key] : this.props.ability.cooldowns[this.state.currentLevel]);
     console.log('calculateCooldowns() fired!', newCooldown);
     console.log('-- params: ', option, key, selected);
