@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import CircleTimer from 'circle-timer';
-import {AbilityCooldown} from './AbilityCooldown.js';
+import { AbilityCooldown } from './AbilityCooldown.js';
 import Countdown from 'react-countdown-now';
 import _ from 'lodash';
 
 const OCTARINE_MULTIPLIER = 0.75;
 
-var l = (msg) => console.log(msg);
+var l = (msg, value) => console.log(msg, value);
 
 export class Ability extends Component {
 
@@ -41,10 +41,10 @@ export class Ability extends Component {
     console.log('clicked Level', cooldown);
     // this.setState( {currentCooldown: cooldown} );
     this.setState( {currentLevel: key} );
-    this.calculateCooldowns('levels', cooldown, true);
+    this.calculateCooldowns('levels', key, true);
   }
 
-  handleOptions(option) {
+  handleOptions(option, key) {
     // console.log('clicked option', option);
     switch (option) {
       case 'scepter-upgrade':
@@ -54,7 +54,7 @@ export class Ability extends Component {
             scepterUpgrade: !this.state.selected.scepterUpgrade
           }
         }));
-        this.calculateCooldowns(option, undefined, !this.state.selected.scepterUpgrade);
+        this.calculateCooldowns(option, key, !this.state.selected.scepterUpgrade);
         break;
       case 'octarine':
         this.setState(prevState => ({
@@ -63,7 +63,7 @@ export class Ability extends Component {
             octarine: !this.state.selected.octarine
           }
         }));
-        this.calculateCooldowns(option, undefined, !this.state.selected.octarine);
+        this.calculateCooldowns(option, key, !this.state.selected.octarine);
         break;
       case 'talent-reduction':
         this.setState(prevState => ({
@@ -72,7 +72,7 @@ export class Ability extends Component {
             talentReduction: !this.state.selected.talentReduction
           }
         }));
-        this.calculateCooldowns(option, undefined, !this.state.selected.talentReduction);
+        this.calculateCooldowns(option, key, !this.state.selected.talentReduction);
         break;
       case 'talent-cooldowns':
         this.setState(prevState => ({
@@ -81,17 +81,17 @@ export class Ability extends Component {
             talentCooldowns: !this.state.selected.talentCooldowns
           }
         }));
-        this.calculateCooldowns(option, undefined, !this.state.selected.talentCooldowns);
+        this.calculateCooldowns(option, key, !this.state.selected.talentCooldowns);
         break;
 
       default:
     }
   }
 
-  calculateCooldowns(option, cooldown, selected) {
-    let newCooldown = (cooldown ? cooldown : this.props.ability.cooldowns[this.state.currentLevel]);
+  calculateCooldowns(option, key = 0, selected) {
+    let newCooldown = (key ? this.props.ability.cooldowns[key] : this.props.ability.cooldowns[this.state.currentLevel]);
     console.log('calculateCooldowns() fired!', newCooldown);
-    console.log('-- params: ', option, cooldown, selected);
+    console.log('-- params: ', option, key, selected);
     //check scepter upgrade
     if ((option == "scepter-upgrade" && selected) || (this.state.selected.scepterUpgrade)) {
       console.log('--- <!> calculateCooldowns AGHANIM fired');
@@ -101,7 +101,9 @@ export class Ability extends Component {
         if (this.props.ability.scepterCooldowns.length == 1) {
           newCooldown = this.props.ability.scepterCooldowns[0];
         } else {
-          newCooldown = this.props.ability.scepterCooldowns[this.state.currentLevel];
+          newCooldown = this.props.ability.scepterCooldowns[key];
+          l('--- lvl: ', this.state.currentLevel);
+          l('--- new cd: ', newCooldown);
         }
       }
     }
@@ -113,11 +115,11 @@ export class Ability extends Component {
         if (this.props.ability.talentCooldowns.length == 1) {
           newCooldown = this.props.ability.talentCooldowns[0];
         } else {
-          newCooldown = this.props.ability.talentCooldowns[this.state.currentLevel];
+          newCooldown = this.props.ability.talentCooldowns[key];
         }
       }
     }
-    //calculare octarine reduction
+    //calculate octarine reduction
     if ((option == "octarine" && selected) || (this.state.selected.octarine)) {
       console.log('--- <!> calculateCooldowns OCTARINE fired /// state: ', this.state.selected.octarine);
 
@@ -160,17 +162,28 @@ export class Ability extends Component {
       this.circleTimer.updateTimer({timerDuration: this.state.currentCooldown, circleDuration: this.state.currentCooldown});
     }
     this.circleTimer.startTimer();
-    console.log('started!', this.circleTimer);
+    l('started!', this.circleTimer);
+  }
+
+  resetTimer() {
+    l('reseted');
+    this.circleTimer.updateTimer({
+      timerDuration: this.state.currentCooldown,
+      circleDuration: this.state.currentCooldown
+    });
+    this.setState({started: false});
+  }
+
+  restartTimer(abilityName) {
+    this.resetTimer();
+    this.startTimer(abilityName);
   }
 
   updateTimer(conf) {
     this.circleTimer.updateTimer(conf);
   }
 
-  pauseTimer() {
-    console.log('paused!', this.circleTimer);
-    this.circleTimer.pauseTimer();
-  }
+
 
   renderLevels(ability, currentLevel) {
     let handleCooldowns = this.handleCooldowns;
@@ -207,7 +220,9 @@ export class Ability extends Component {
           className={`ability-portrait ability-${ability.name}` + ' ' + (this.state.started ? 'started' : '')}
           style={abilityIconStyle}
         >
-          {this.state.started ? <AbilityCooldown duration={this.state.currentCooldown} /> : undefined}
+          {this.state.started ?
+            <AbilityCooldown duration={this.state.currentCooldown} />
+            : undefined}
         </div>
         <div className="ability-controls">
           <div className="levels">
@@ -239,7 +254,8 @@ export class Ability extends Component {
             : undefined
           }
           <button className="btn btn-primary" onClick={() => this.startTimer(ability.name)}>Start</button>
-          <button className="btn btn-primary" onClick={() => this.pauseTimer()}>Pause</button>
+          <button className="btn btn-primary" onClick={() => this.restartTimer(ability.name)}>Restart</button>
+          <button className="btn btn-primary" onClick={() => this.resetTimer()}>Reset</button>
           {/* <button className="btn btn-primary">LVL 1</button>
           <button className="btn btn-primary">LVL 2</button>
           <button className="btn btn-primary">LVL 3</button> */}

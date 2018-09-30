@@ -30,7 +30,7 @@ const initialState = {
       id: 12345,
       heroId: 8888,
       cooldowns: [1000,100,10],
-      scepterCooldowns: [200],
+      scepterCooldowns: [5000, 500, 50],
       talentCooldownReduction: 10,
       talentCooldowns: [2000,200,20]
 
